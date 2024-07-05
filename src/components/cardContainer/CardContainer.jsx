@@ -3,13 +3,26 @@ import "./CardContainer.css";
 
 import { useState } from "react";
 
+import { getAllBooks } from "../../utils/fetch";
+
 const CardContainer = () => {
   const [books, setBooks] = useState([]);
+
+  const clickHandler = async (e) => {
+    e.preventDefault();
+    console.log("hello click handler");
+
+    const allBooks = await getAllBooks();
+
+    console.log("allBooks click handle", allBooks);
+
+    await setBooks([...allBooks.allBooks]);
+  };
 
   return (
     <div className="card-container">
       <div>
-        <button onClick={() => console.log("Hello click!")}>GetAllBooks</button>
+        <button onClick={(e) => clickHandler(e)}>GetAllBooks</button>
       </div>
       <div>
         {books.length >= 1
